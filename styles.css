@@ -1,0 +1,372 @@
+/* ==========================================================================
+   1. VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+    --bg-global: #0a0d14;
+    --bg-card: rgba(16, 22, 34, 0.75);
+    --bg-input: rgba(10, 13, 20, 0.6);
+
+    /* Brand Accents */
+    --accent-cyan: #00f2fe;
+    --accent-blue: #4facfe;
+    --accent-gradient: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+
+    /* Status Colors */
+    --color-text-main: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-focus: rgba(0, 242, 254, 0.5);
+    --color-warn: #f59e0b;
+    --color-warn-bg: rgba(245, 158, 11, 0.1);
+    --color-success: #10b981;
+    --color-error: #ef4444;
+
+    /* Typography & Effects */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --radius-lg: 16px;
+    --radius-md: 8px;
+    --shadow-glow: 0 0 40px rgba(0, 242, 254, 0.15);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-global);
+    color: var(--color-text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* Container & Ambient Glow Background */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 24px;
+    z-index: 1;
+}
+
+.glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(79, 172, 254, 0.12) 0%, rgba(0, 242, 254, 0.03) 50%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   3. HEADER SECTION
+   ========================================================================== */
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    background: var(--accent-gradient);
+    color: #000;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 14px rgba(0, 242, 254, 0.3);
+}
+
+.header h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.header p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* System Meta Pills */
+.meta {
+    display: flex;
+    gap: 8px;
+}
+
+.pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+}
+
+.pill-warn {
+    background: var(--color-warn-bg);
+    color: var(--color-warn);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* ==========================================================================
+   4. FORM BOX (CARD CONTAINER)
+   ========================================================================== */
+.form-box {
+    background: var(--bg-card);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--shadow-glow);
+}
+
+/* Sliding Tab Controller */
+.button-box {
+    position: relative;
+    display: flex;
+    background: var(--bg-input);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+#btn-bg {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: var(--accent-gradient);
+    border-radius: calc(var(--radius-md) - 2px);
+    transition: var(--transition-smooth);
+    z-index: 0;
+}
+
+.toggle-btn {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    cursor: pointer;
+    z-index: 1;
+    transition: var(--transition-smooth);
+}
+
+/* Style active state via ARIA attributes */
+.toggle-btn[aria-selected="true"] {
+    color: #000;
+}
+
+/* Security Meta Row */
+.security-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.sec-chip {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.sec-chip-warn {
+    color: var(--color-warn);
+    background: var(--color-warn-bg);
+}
+
+/* ==========================================================================
+   5. INPUT FORMS & FIELDS
+   ========================================================================== */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Active Form Handling Fallback */
+#register-form {
+    display: none;
+    /* Controlled via your JS classes/methods */
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.input-field {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--color-text-main);
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    background: rgba(10, 13, 20, 0.9);
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.85rem;
+}
+
+/* Hint text inside registration */
+.hint {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border-left: 2px solid var(--accent-blue);
+}
+
+/* Action Buttons */
+.submit-btn {
+    width: 100%;
+    background: var(--accent-gradient);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+}
+
+.submit-btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================================================
+   6. STATUS METRICS & FOOTNOTES
+   ========================================================================== */
+.status {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    text-align: center;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+}
+
+/* JavaScript Dynamic Classes for Status Box */
+.status.success {
+    padding: 10px;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status.error {
+    padding: 10px;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--color-error);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Footnotes & Separators */
+.footnote {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.footnote .line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+    margin-bottom: 16px;
+}
+
+.footnote small {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.footnote strong,
+.footer strong {
+    color: var(--accent-cyan);
+}
+
+/* Bottom Page Footer */
+.footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   7. RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 480px) {
+    .form-box {
+        padding: 20px;
+    }
+
+    .glow {
+        width: 300px;
+        height: 300px;
+    }
+}

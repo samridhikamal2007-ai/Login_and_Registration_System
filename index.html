@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Auth Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="glow" aria-hidden="true"></div>
+        <header class="header">
+            <div class="brand">
+                <div class="logo"></div>
+                <div>
+                    <h1>Enterprise Auth Portal</h1>
+                    <p>Registration & Login • Secure Access</p>
+                </div>
+            </div>
+            <div class="meta">
+                <span class="pill">Local Auth</span>
+                <span class="pill pill-warn">File-backed demo</span>
+            </div>
+        </header>
+
+
+        <div class="form-box">
+            <div class="button-box" role="tablist" aria-label="Auth mode">
+                <div id="btn-bg"></div>
+                <button type="button" class="toggle-btn" role="tab" aria-selected="true" aria-controls="login-form"
+                    onclick="showLogin()">Log In</button>
+                <button type="button" class="toggle-btn" role="tab" aria-selected="false" aria-controls="register-form"
+                    onclick="showRegister()">Register</button>
+            </div>
+
+            <div class="security-row" aria-hidden="true">
+                <span class="sec-chip">🔒 Password Policy</span>
+                <span class="sec-chip">⚡ Fast Hash (Demo)</span>
+                <span class="sec-chip sec-chip-warn">🗄 Stored in TXT (Demo)</span>
+            </div>
+
+
+            <!-- Login Form -->
+            <form id="login-form" class="input-group" autocomplete="off">
+                <div class="field">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" class="input-field" placeholder="Username" required />
+                </div>
+                <div class="field">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="input-field" placeholder="Password" required />
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <!-- Registration Form -->
+            <form id="register-form" class="input-group" autocomplete="off">
+                <div class="field">
+                    <label for="reg-username">Create Username</label>
+                    <input type="text" id="reg-username" class="input-field" placeholder="4–20 alphanumeric chars"
+                        required />
+                </div>
+                <div class="field">
+                    <label for="reg-password">Create Password</label>
+                    <input type="password" id="reg-password" class="input-field" placeholder="8+ chars w/ complexity"
+                        required />
+                </div>
+
+                <p class="hint">Password must be 8+ chars, 1 uppercase, 1 lowercase, 1 number, 1 special char (@ $ ! % *
+                    ? &).</p>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+            <div id="status-message" class="status" aria-live="polite"></div>
+
+            <div class="footnote">
+                <div class="line"></div>
+                <small>
+                    API: <strong>http://127.0.0.1:8080</strong> • Routes: <em>/api/register</em>, <em>/api/login</em>
+                </small>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <span>Backend API: <strong>http://localhost:8080</strong></span>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
